@@ -1,10 +1,11 @@
 import React from "react"
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
+import MapMarkers from "./Map/MapMarkers";
 
 const Map = compose(
 	withProps({
-		googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB54QDkpQG5RFu_G1JQiHSWAghsKlYnDgg&callback=initMap",
+		googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB54QDkpQG5RFu_G1JQiHSWAghsKlYnDgg",
 		loadingElement: <div style={{ height: `100%` }} />,
 		containerElement: <div style={{ height: `100vh` }} />,
 		mapElement: <div style={{ height: `100%` }} />,
@@ -14,10 +15,12 @@ const Map = compose(
 )( props => (
 	<GoogleMap
 		defaultZoom={8}
-		defaultCenter={{ lat: -34.397, lng: 150.644 }}
+		defaultCenter={{ lat: -10.3333333, lng: -53.2 }}
 	>
-		<Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />
+		<MapMarkers places={props.places}/>
+
 	</GoogleMap>
+
 ));
 
 export default Map;
