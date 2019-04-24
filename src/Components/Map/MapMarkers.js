@@ -6,7 +6,7 @@ const MapMarker = (props) => {
 	return (
 		<>
 		{props.places && props.places.map((place, index) =>
-			<Marker key={index} position={{ lat: place.lat, lng: place.lng }} />
+			<Marker key={index} position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }} />
 		)}
 		</>
 	);

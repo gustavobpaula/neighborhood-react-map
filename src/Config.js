@@ -1,0 +1,9 @@
+const Config = {
+	Foursquare: {
+		clientId: 'OHAGVQAXZELVFZLNHJTPBJS2SPJ4TKYBMDJESLRWU5123GAO',
+		clientSecret: '4QWK2X5EHKVJDO44GDCNT2O11XKQYNMJB5NGYWN4EGVS4TEJ',
+		version: 20180323
+	}
+}
+
+export default Config;
