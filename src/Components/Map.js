@@ -13,16 +13,18 @@ const Map = compose(
 	withScriptjs,
 	withGoogleMap
 )( props => (
-	<GoogleMap
-		defaultZoom={14}
-		defaultCenter={{
-			lat: props.defaultPosition.latitude,
-			lng: props.defaultPosition.longitude
-		}}
-	>
-		<MapMarkers places={props.places}/>
+	props.defaultPosition.latitude ?
+		<GoogleMap
+			defaultZoom={14}
+			defaultCenter={{
+				lat: props.defaultPosition.latitude,
+				lng: props.defaultPosition.longitude
+			}}
+		>
+			<MapMarkers places={props.places} />
 
-	</GoogleMap>
+		</GoogleMap>
+	: null
 
 ));
 

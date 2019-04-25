@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Map from "./Components/Map";
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import Config from './Config';
+import { CssBaseline, Grid } from '@material-ui/core';
+import SideBar from './Components/SideBar';
 
 
 const App = () => {
@@ -12,13 +11,14 @@ const App = () => {
 
 	const [defaultPosition, setDefaultPosition] = useState({});
 
+
 	useEffect( () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(handlePositionReceived);
 		}
 	}, []);
 
-	function handlePositionReceived({coords}) {
+	const handlePositionReceived = ({coords}) => {
 		const {latitude, longitude} = coords;
 
 		setDefaultPosition({latitude, longitude});
@@ -59,13 +59,10 @@ const App = () => {
 			<CssBaseline />
 			<Grid container spacing={0}>
 				<Grid item xs={3}>
-					<Paper className='teste'><h1>Sidebar</h1></Paper>
+					<SideBar places={listOfPlaces} />
 				</Grid>
 				<Grid item xs={9}>
-					{defaultPosition.latitude &&
-						<Map defaultPosition={defaultPosition} places={listOfPlaces}></Map>
-					}
-
+					<Map defaultPosition={defaultPosition} places={listOfPlaces} />
 				</Grid>
 			</Grid>
 		</>
