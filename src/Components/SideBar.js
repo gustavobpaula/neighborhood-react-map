@@ -12,8 +12,8 @@ const SideBar = (props) => {
 
 	return (
 		<Paper>
-			<List component='nav'
-				subheader={<ListSubheader component='div'>Restaurantes próximos</ListSubheader>}
+			<List style={{ maxHeight: '100vh', overflow: 'auto' }} component='nav'
+				subheader={<ListSubheader disableSticky={true} component='div'>Restaurantes próximos</ListSubheader>}
 			>
 			 	{props.places && props.places.map( (place, index) => (
 					<ListItem key={index} button
