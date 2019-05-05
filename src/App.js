@@ -45,7 +45,9 @@ const App = () => {
 
 			const data = await response.json();
 
-			setListOfPlaces(data.response.groups[0].items);
+			if (data && data.response && data.response.groups) {
+				setListOfPlaces(data.response.groups[0].items);
+			}
 		})();
 
 
