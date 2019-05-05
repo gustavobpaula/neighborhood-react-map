@@ -32,9 +32,6 @@ const PlaceInfoWindow = (props) => {
 			`);
 			const data = await response.json();
 
-			console.log('place', props.place);
-			console.log('data', data);
-
 			if(data && data.response && data.response.venue) {
 				setDetails(data.response.venue);
 			}

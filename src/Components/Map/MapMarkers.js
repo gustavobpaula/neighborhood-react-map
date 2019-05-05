@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Marker } from "react-google-maps"
 import PlaceInfoWindow from './PlaceInfoWindow';
 
 
 const MapMarker = (props) => {
 
-	const [infoWindowIsOpen, setInfoWindowIsOpen] = useState([]);
-
-	const openInfoWindow = markerIndex => setInfoWindowIsOpen(markerIndex);
-	const closeInfoWindow = () => 	setInfoWindowIsOpen([]);
-
-
 	return (
 		<>
-		{props.places && props.places.map((place, index) =>
-			<Marker key={index} onClick={() => openInfoWindow(index) } position={ { lat: place.venue.location.lat, lng: place.venue.location.lng } }>
-				{infoWindowIsOpen === index && <PlaceInfoWindow closeInfoWindow={closeInfoWindow} place={place} />}
-			</Marker>
-		)}
+			{props.places && props.places.map((place, index) =>
+				<Marker key={index} onClick={() => {
+					props.infoWindowControls.openInfoWindow(index);
+					props.sideBarControls.handleListItemClick(index);
+				} } position={ { lat: place.venue.location.lat, lng: place.venue.location.lng } }>
+					{props.infoWindowControls.infoWindowIsOpen === index && <PlaceInfoWindow closeInfoWindow={props.infoWindowControls.closeInfoWindow} place={place} />}
+				</Marker>
+			)}
 		</>
 	);
 }

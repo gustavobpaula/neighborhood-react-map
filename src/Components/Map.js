@@ -15,14 +15,13 @@ const Map = compose(
 )( props => (
 	props.defaultPosition.latitude ?
 		<GoogleMap
-			defaultZoom={14}
+			defaultZoom={15}
 			defaultCenter={{
 				lat: props.defaultPosition.latitude,
 				lng: props.defaultPosition.longitude
 			}}
 		>
-			<MapMarkers places={props.places} />
-
+			<MapMarkers places={props.places} infoWindowControls={props.infoWindowControls} sideBarControls={props.sideBarControls}/>
 		</GoogleMap>
 	: null
 
