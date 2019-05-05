@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { InfoWindow } from "react-google-maps";
 import Config from "../../Config";
-import { Card, CardActionArea, CardMedia, withStyles, CardContent, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia, withStyles, CardContent, Typography, CardActions, Button } from '@material-ui/core';
 
 
 
@@ -19,7 +19,7 @@ const styles = {
 const PlaceInfoWindow = (props) => {
 
 	const { classes } = props;
-	const [photo, setPhoto] = useState([]);
+	const [details, setDetails] = useState([]);
 
 	useEffect(() => {
 
@@ -36,7 +36,7 @@ const PlaceInfoWindow = (props) => {
 			console.log('data', data);
 
 			if(data && data.response && data.response.venue) {
-				setPhoto(data.response.venue.bestPhoto);
+				setDetails(data.response.venue);
 			}
 		})();
 
@@ -45,10 +45,12 @@ const PlaceInfoWindow = (props) => {
 	return (
 		<InfoWindow onCloseClick={props.closeInfoWindow}>
 			<Card className={classes.card}>
-				<CardActionArea>
-					{photo.prefix && (
-						<CardMedia className={classes.media} image={`${photo.prefix}345x200${photo.suffix}`}
-						title="teste"
+				<CardActionArea href={details.url || details.canonicalUrl || '#'}>
+					{details.bestPhoto && (
+						<CardMedia
+							className={classes.media}
+							image={`${details.bestPhoto.prefix}345x200${details.bestPhoto.suffix}`}
+							title={props.place.venue.name}
 						/>
 					)}
 					<CardContent>
@@ -64,8 +66,35 @@ const PlaceInfoWindow = (props) => {
 
 							})}
 						</Typography>
+						{details.hours && (
+							<Typography component="p">
+								<br />
+								{details.hours.status}
+							</Typography>
+						)}
+
 					</CardContent>
 				</CardActionArea>
+
+				{details.contact && (
+					<CardActions>
+						{details.contact.facebook && (
+							<Button size="small" color="primary" href={`https://www.facebook.com/${details.contact.facebook}`} target="_blank">
+								Facebook
+							</Button>
+						)}
+						{details.contact.instagram && (
+							<Button size="small" color="primary" href={`https://www.instagram.com/${details.contact.instagram}`} target="_blank">
+								Instagram
+							</Button>
+						)}
+						{details.contact.formattedPhone && (
+							<Button size="small" color="primary" href={`tel:${details.contact.phone}`} target="_blank" >
+								{details.contact.formattedPhone}
+							</Button>
+						)}
+					</CardActions>
+				)}
 			</Card>
 		</InfoWindow>
 		);
