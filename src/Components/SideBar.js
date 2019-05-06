@@ -18,7 +18,7 @@ const SideBar = (props) => {
 
 	return (
 		<Paper>
-			<List style={{ maxHeight: '100vh', overflow: 'auto' }} component='nav'
+			<List style={{ height: '100vh', overflow: 'auto' }} component='nav'
 				subheader={<ListSubheader disableSticky={true} component='div'>Restaurantes próximos</ListSubheader>}
 			>
 				<form className={classes.form} noValidate autoComplete="off">
