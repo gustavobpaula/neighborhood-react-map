@@ -2,18 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { InfoWindow } from "react-google-maps";
 import Config from "../../Config";
 import { Card, CardActionArea, CardMedia, withStyles, CardContent, Typography, CardActions, Button } from '@material-ui/core';
-
-
-
-const styles = {
-	card: {
-		maxWidth: 345,
-	},
-	media: {
-		width: 345,
-		height: 200,
-	},
-};
+import styles from "../../style";
 
 
 const PlaceInfoWindow = (props) => {

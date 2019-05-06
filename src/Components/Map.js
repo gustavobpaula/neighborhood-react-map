@@ -6,9 +6,12 @@ import MapMarkers from "./Map/MapMarkers";
 const Map = compose(
 	withProps({
 		googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB54QDkpQG5RFu_G1JQiHSWAghsKlYnDgg",
-		loadingElement: <div style={{ height: `100%` }} />,
-		containerElement: <div style={{ height: `100vh` }} />,
-		mapElement: <div style={{ height: `100%` }} />,
+		loadingElement: <div style={{ height: '100%' }} />,
+		containerElement: <div style={{
+			height: 'calc(100vh - 64px)',
+			marginTop: '64px'
+		}} />,
+		mapElement: <div style={{ height: '100%' }} />,
 	}),
 	withScriptjs,
 	withGoogleMap

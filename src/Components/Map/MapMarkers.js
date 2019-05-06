@@ -10,7 +10,7 @@ const MapMarker = (props) => {
 			{props.places && props.places.map((place, index) =>
 				<Marker key={index} onClick={() => {
 					props.infoWindowControls.openInfoWindow(index);
-					props.sideBarControls.handleListItemClick(index);
+					props.sideBarControls.handleListItemClick(index, place);
 				} } position={ { lat: place.venue.location.lat, lng: place.venue.location.lng } }>
 					{props.infoWindowControls.infoWindowIsOpen === index && <PlaceInfoWindow closeInfoWindow={props.infoWindowControls.closeInfoWindow} place={place} />}
 				</Marker>

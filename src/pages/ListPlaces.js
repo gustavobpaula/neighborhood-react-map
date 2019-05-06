@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Map from "../Components/Map";
 import Config from '../Config';
-import { CssBaseline, Grid, Snackbar, IconButton } from '@material-ui/core';
+import { CssBaseline, Snackbar, IconButton, withStyles, AppBar, Toolbar, Typography } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import SideBar from '../Components/SideBar';
 import sortBy from 'sort-by';
+import styles from "../style";
 
 
 const ListPlaces = (props) => {
+
+	const { classes } = props;
+
+	const [mobileOpen, setMobileOpen] = useState(false);
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen);
+	}
 
 	const [infoWindowIsOpen, setInfoWindowIsOpen] = useState([]);
 
@@ -23,7 +32,9 @@ const ListPlaces = (props) => {
 
 	const [selectedItem, setSelectedItem] = useState([]);
 
-	const handleListItemClick = (index) => {
+	const handleListItemClick = (index, place) => {
+		console.log('place', place);
+		handleDrawerToggle();
 		setSelectedItem(index);
 		openInfoWindow(index);
 	};
@@ -103,27 +114,44 @@ const ListPlaces = (props) => {
 	const [openSnackBar, setOpenSnackBar] = useState(false);
 
 	return (
-		<>
+		<div className={classes.root}>
 			<CssBaseline />
-			<Grid container spacing={0}>
-				<Grid item xs={3}>
-					<SideBar
-						searchTerm={searchTerm}
-						filterPlaces={filterPlaces}
-						places={filteredPlaces}
-						infoWindowControls={infoWindowControls}
-						sideBarControls={sideBarControls}
-					/>
-				</Grid>
-				<Grid item xs={9}>
-					<Map
-						defaultPosition={defaultPosition}
-						places={filteredPlaces}
-						infoWindowControls={infoWindowControls}
-						sideBarControls={sideBarControls}
-					/>
-				</Grid>
-			</Grid>
+
+			<AppBar position="fixed" className={classes.appBar}>
+				<Toolbar>
+					<IconButton
+						color="inherit"
+						aria-label="Open drawer"
+						onClick={handleDrawerToggle}
+						className={classes.menuButton}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Typography variant="h6" color="inherit" noWrap>
+						Responsive drawer
+					</Typography>
+				</Toolbar>
+			</AppBar>
+
+			<SideBar
+				searchTerm={searchTerm}
+				filterPlaces={filterPlaces}
+				places={filteredPlaces}
+				infoWindowControls={infoWindowControls}
+				sideBarControls={sideBarControls}
+				mobileOpen={mobileOpen}
+				handleDrawerToggle={handleDrawerToggle}
+			/>
+
+			<main className={classes.content}>
+				<Map
+					defaultPosition={defaultPosition}
+					places={filteredPlaces}
+					infoWindowControls={infoWindowControls}
+					sideBarControls={sideBarControls}
+				/>
+			</main>
+
 			<Snackbar
 				anchorOrigin={{
 					vertical: 'top',
@@ -147,8 +175,8 @@ const ListPlaces = (props) => {
 					</IconButton>
 				]}
 			/>
-		</>
+		</div>
 	);
 }
 
-export default ListPlaces;
+export default withStyles(styles, { withTheme: true })(ListPlaces);
