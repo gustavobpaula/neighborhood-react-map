@@ -8,8 +8,16 @@ import styles from "../../utils/materialStyle";
 const PlaceInfoWindow = (props) => {
 
 	const { classes } = props;
+
+	/**
+	 * Create state of details
+	 */
 	const [details, setDetails] = useState([]);
 
+	/**
+	 * Get response from foursquare api
+	 * and set deails when component did mount
+	 */
 	useEffect(() => {
 
 		(async () => {

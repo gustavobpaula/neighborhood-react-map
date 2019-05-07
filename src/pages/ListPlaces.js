@@ -13,19 +13,33 @@ const ListPlaces = (props) => {
 
 	const { classes } = props;
 
+	/**
+	 * Create States
+	 */
 	const [mobileOpen, setMobileOpen] = useState(false);
-	const handleDrawerToggle = () => {
-		setMobileOpen(!mobileOpen);
-	}
-	const handleDrawerClose = () => {
-		setMobileOpen(false);
-	}
-
 	const [infoWindowIsOpen, setInfoWindowIsOpen] = useState([]);
+	const [selectedItem, setSelectedItem] = useState([]);
+	const [defaultPosition, setDefaultPosition] = useState({});
+	const [listOfPlaces, setListOfPlaces] = useState([]);
+	const [filteredPlaces, setFilteredPlaces] = useState([]);
+	const [searchTerm, setSearchTerm] = useState([]);
+	const [openSnackBar, setOpenSnackBar] = useState(false);
 
+	/**
+	 * Open InfoWindow
+	 *
+	 * @param {Number} index index of place
+	 */
 	const openInfoWindow = index => setInfoWindowIsOpen(index);
+
+	/**
+	 * Close InfoWindow
+	 */
 	const closeInfoWindow = () => setInfoWindowIsOpen([]);
 
+	/**
+	 * Create object of InfoWindow Controls
+	 */
 	const infoWindowControls = {
 		infoWindowIsOpen,
 		setInfoWindowIsOpen,
@@ -33,13 +47,33 @@ const ListPlaces = (props) => {
 		closeInfoWindow
 	}
 
-	const [selectedItem, setSelectedItem] = useState([]);
-
+	/**
+	 * Handles list item when clicked
+	 *
+	 * @param {Number} index index of place
+	 */
 	const handleListItemClick = (index) => {
 		setSelectedItem(index);
 		openInfoWindow(index);
 	};
 
+	/**
+	 * Handles drawer when toggle
+	 */
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen);
+	}
+
+	/**
+	 * Handles drawer when close
+	 */
+	const handleDrawerClose = () => {
+		setMobileOpen(false);
+	}
+
+	/**
+	 * Create object of SideBar Controls
+	 */
 	const sideBarControls = {
 		selectedItem,
 		handleListItemClick,
@@ -47,24 +81,30 @@ const ListPlaces = (props) => {
 		handleDrawerClose
 	}
 
-	const [defaultPosition, setDefaultPosition] = useState({});
+	/**
+	 * Handles position received from request
+	 *
+	 * @param {Object} param0 Object of coords
+	 */
+	const handlePositionReceived = ({ coords }) => {
+		const { latitude, longitude } = coords;
 
+		setDefaultPosition({ latitude, longitude });
+	}
+
+	/**
+	 * Get current position when component render
+	 */
 	useEffect( () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(handlePositionReceived);
 		}
 	}, []);
 
-	const handlePositionReceived = ({coords}) => {
-		const {latitude, longitude} = coords;
-
-		setDefaultPosition({latitude, longitude});
-	}
-
-	const [listOfPlaces, setListOfPlaces] = useState([]);
-	const [filteredPlaces, setFilteredPlaces] = useState([]);
-	const [searchTerm, setSearchTerm] = useState([]);
-
+	/**
+	 * Get recomendations from foursquare api
+	 * and set places when position change
+	 */
 	useEffect(() => {
 
 		if (!defaultPosition.latitude) {
@@ -97,7 +137,11 @@ const ListPlaces = (props) => {
 
 	}, [defaultPosition]);
 
-
+	/**
+	 * Filter places when input search change
+	 *
+	 * @param {Object} event input object event
+	 */
 	const filterPlaces = event => {
 
 
@@ -113,8 +157,6 @@ const ListPlaces = (props) => {
 			setOpenSnackBar(true);
 		}
 	};
-
-	const [openSnackBar, setOpenSnackBar] = useState(false);
 
 	return (
 		<div className={classes.root}>
