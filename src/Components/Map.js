@@ -3,14 +3,15 @@ import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
 import MapMarkers from "./Map/MapMarkers";
 import mapStyle from "../utils/mapStyle";
+import Config from "../utils/Config";
 
 const Map = compose(
 	withProps({
-		googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB54QDkpQG5RFu_G1JQiHSWAghsKlYnDgg",
+		googleMapURL: `https://maps.googleapis.com/maps/api/js?v=${Config.GoogleMap.version}&key=${Config.GoogleMap.key}`,
 		loadingElement: <div style={{ height: '100%' }} />,
 		containerElement: <div style={{
-			height: 'calc(100vh - 64px)',
-			marginTop: '64px'
+			height: 'calc(100vh - 56px)',
+			marginTop: '56px'
 		}} />,
 		mapElement: <div style={{ height: '100%' }} />,
 	}),

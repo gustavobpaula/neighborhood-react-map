@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { InfoWindow } from "react-google-maps";
 import Config from "../../utils/Config";
-import { Card, CardActionArea, CardMedia, withStyles, CardContent, Typography, CardActions, Button } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia, withStyles, CardContent, Typography, CardActions, Button, Link } from '@material-ui/core';
 import styles from "../../utils/materialStyle";
 
 
@@ -81,6 +81,11 @@ const PlaceInfoWindow = (props) => {
 						)}
 					</CardActions>
 				)}
+
+				<Typography component="small" align="center">
+					<br />
+					provided by <Link href="https://foursquare.com/" target="_blank">foursquare</Link>
+				</Typography>
 			</Card>
 		</InfoWindow>
 		);
