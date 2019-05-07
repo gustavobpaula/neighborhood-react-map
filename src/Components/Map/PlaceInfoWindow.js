@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { InfoWindow } from "react-google-maps";
-import Config from "../../Config";
+import Config from "../../utils/Config";
 import { Card, CardActionArea, CardMedia, withStyles, CardContent, Typography, CardActions, Button } from '@material-ui/core';
-import styles from "../../style";
+import styles from "../../utils/materialStyle";
 
 
 const PlaceInfoWindow = (props) => {

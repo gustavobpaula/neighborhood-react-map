@@ -1,5 +1,5 @@
 import React from 'react';
-import image404 from "../images/404.gif";
+import image404 from "../images/500.gif";
 
 
 const Page404 = () => {
@@ -7,7 +7,6 @@ const Page404 = () => {
 	const divStyle = {
 		width: '100vw',
 		height: '100vh',
-		background: '#000'
 	};
 	const image = {
 		position: 'absolute',
@@ -19,7 +18,7 @@ const Page404 = () => {
 
 	return (
 		<div style={divStyle}>
-			<img style={image} src={image404} alt="404" />
+			<img style={image} src={image404} alt="500" />
 		</div>
 	);
 }

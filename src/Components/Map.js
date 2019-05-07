@@ -2,6 +2,7 @@ import React from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps"
 import MapMarkers from "./Map/MapMarkers";
+import mapStyle from "../utils/mapStyle";
 
 const Map = compose(
 	withProps({
@@ -19,7 +20,8 @@ const Map = compose(
 	props.defaultPosition.latitude ?
 		<GoogleMap
 			defaultZoom={14}
-			defaultCenter={{
+			defaultOptions={{ styles: mapStyle }}
+			center={{
 				lat: props.defaultPosition.latitude,
 				lng: props.defaultPosition.longitude
 			}}

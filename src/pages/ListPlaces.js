@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Map from "../Components/Map";
-import Config from '../Config';
+import Config from '../utils/Config';
 import { CssBaseline, Snackbar, IconButton, withStyles, AppBar, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import SideBar from '../Components/SideBar';
 import sortBy from 'sort-by';
-import styles from "../style";
+import styles from "../utils/materialStyle";
 
 
 const ListPlaces = (props) => {
@@ -16,6 +16,9 @@ const ListPlaces = (props) => {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
+	}
+	const handleDrawerClose = () => {
+		setMobileOpen(false);
 	}
 
 	const [infoWindowIsOpen, setInfoWindowIsOpen] = useState([]);
@@ -32,16 +35,16 @@ const ListPlaces = (props) => {
 
 	const [selectedItem, setSelectedItem] = useState([]);
 
-	const handleListItemClick = (index, place) => {
-		console.log('place', place);
-		handleDrawerToggle();
+	const handleListItemClick = (index) => {
 		setSelectedItem(index);
 		openInfoWindow(index);
 	};
 
 	const sideBarControls = {
 		selectedItem,
-		handleListItemClick
+		handleListItemClick,
+		handleDrawerToggle,
+		handleDrawerClose
 	}
 
 	const [defaultPosition, setDefaultPosition] = useState({});
@@ -87,7 +90,7 @@ const ListPlaces = (props) => {
 				setListOfPlaces(data.response.groups[0].items);
 				setFilteredPlaces(data.response.groups[0].items);
 			}else {
-				props.history.push(`/404`);
+				props.history.push(`/500`);
 			}
 		})();
 
@@ -128,7 +131,7 @@ const ListPlaces = (props) => {
 						<MenuIcon />
 					</IconButton>
 					<Typography variant="h6" color="inherit" noWrap>
-						Responsive drawer
+						Mapa do Bairro
 					</Typography>
 				</Toolbar>
 			</AppBar>
@@ -140,7 +143,6 @@ const ListPlaces = (props) => {
 				infoWindowControls={infoWindowControls}
 				sideBarControls={sideBarControls}
 				mobileOpen={mobileOpen}
-				handleDrawerToggle={handleDrawerToggle}
 			/>
 
 			<main className={classes.content}>

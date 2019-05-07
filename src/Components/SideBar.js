@@ -2,7 +2,7 @@ import React from 'react';
 import { List, ListSubheader, ListItem, ListItemText, ListItemIcon, TextField, withStyles, Hidden, Drawer } from '@material-ui/core';
 
 import { DebounceInput } from 'react-debounce-input';
-import styles from "../style";
+import styles from "../utils/materialStyle";
 
 
 const SideBar = (props) => {
@@ -21,7 +21,10 @@ const SideBar = (props) => {
 			{props.places && props.places.map((place, index) => (
 				<ListItem key={index} button
 					selected={props.sideBarControls.selectedItem === index}
-					onClick={(e) => props.sideBarControls.handleListItemClick(index)}
+					onClick={(e) => {
+						props.sideBarControls.handleListItemClick(index);
+						props.sideBarControls.handleDrawerClose();
+					}}
 				>
 					<ListItemIcon>
 						<img src={`${place.venue.categories[0].icon.prefix}bg_32.png`} alt={place.venue.name} />
@@ -42,7 +45,7 @@ const SideBar = (props) => {
 					variant="temporary"
 					anchor={'left'}
 					open={props.mobileOpen}
-					onClose={props.handleDrawerToggle}
+					onClose={props.sideBarControls.handleDrawerToggle}
 					classes={{
 						paper: classes.drawerPaper,
 					}}
