@@ -122,7 +122,9 @@ const ListPlaces = (props) => {
 				&limit=50
 				&ll=${position}
 				&section=food
-			`);
+			`).catch(() => {
+				props.history.push(`/500`);
+			});
 
 			const data = await response.json();
 
@@ -193,6 +195,7 @@ const ListPlaces = (props) => {
 					places={filteredPlaces}
 					infoWindowControls={infoWindowControls}
 					sideBarControls={sideBarControls}
+					history={props.history}
 				/>
 			</main>
 
